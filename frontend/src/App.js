@@ -1,18 +1,27 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Main from './containers/Main'
+import PostDetails from './containers/PostDetails'
+import EditPost from './components/EditPost'
+import EditComment from './components/EditComment'
+import CreatePost from './components/CreatePost'
+import CreateComment from './components/CreateComment'
+import { Route} from 'react-router-dom'
+import './index.css'
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div>
+        <Route exact path='/' render={() => (
+            <Main editClickedPost={this.editClickedPost}/>
+        )}/>
+        <Route exact path='/new' render={() => (
+            <CreatePost />
+        )}/>
+        <Route  path='/edit/:id'  component={EditPost}/>
+        <Route  exact path='/posts/:id'  component={PostDetails}/>
+        <Route  exact path='/posts/:id/comment/new'  component={CreateComment}/>
+        <Route  exact path='/posts/:id/comment/edit/:id'  component={EditComment}/>
       </div>
     );
   }
