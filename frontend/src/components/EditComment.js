@@ -7,9 +7,7 @@ import _ from 'lodash'
 import {editComment, fetchComment} from '../actions/Comments'
 
 class EditComment extends Component {
-    state = {
-        body: ''
-    }
+    
     componentWillMount() {
         this.props.fetchComment(this.props.match.params.id)
     }
@@ -21,19 +19,8 @@ class EditComment extends Component {
     }
 
 
-    getValue = () => {
-        this.setState({ body: this.props.comment.body });
-        console.log('test')
-    }
-    componentDidMount() {
-        console.log('inside')
-        _.debounce(this.getValue, 500)
-    }
-
     render() {
-        console.log(this.props.comment)
         const {comment} = this.props
-        const {body} = comment
         return (
             (!comment) ? <Loading /> :
             <div>
@@ -54,7 +41,7 @@ class EditComment extends Component {
                             </div>
                             <div className='form-group'>
                                 <label htmlFor='body'>Comment</label>{comment.body}
-                                <input type='text' defaultValue={comment.body}  ref={(input) => this.input = input} id='body' className='form-control' placeholder='Comment' />
+                                <input type='text' defaultValue={comment.body} id='body' className='form-control' placeholder='Comment' />
                             </div>
                             <div className='row'>
                                 <button type='submit' className='btn btn-md btn-primary margin-btn'>Update</button>
@@ -71,9 +58,7 @@ class EditComment extends Component {
 
 }
 
-function mapStateToProps(state , { match }) {
-    console.log(state)
-    //this.setState({body: state.comments.body})
+function mapStateToProps(state ) {
     return {
       comment: state.comments
     }
