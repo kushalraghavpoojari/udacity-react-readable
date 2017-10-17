@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Back from 'react-icons/lib/ti/arrow-left-thick'
 import {Link} from 'react-router-dom'
-import {fetchPosts, votePost} from '../actions/Post'
+import {fetchPosts, votePost, deletePost} from '../actions/Post'
 import { connect } from 'react-redux';
 import _ from 'lodash'
 import Loading from '../components/Loading'
@@ -20,6 +20,11 @@ class PostDetails extends Component {
     }
 
     render() {
+
+        this.deleteClickedPost = (id) => {
+            this.props.deletePost(id, this.props.history)
+        }
+
         const {post, voteCurrentPost} = this.props
         return (
             (!post) ? <Loading /> :
@@ -40,7 +45,7 @@ class PostDetails extends Component {
                         </Link>
                         <span className='col-md-1 circle voteScore'>{post.voteScore}</span>
                         <span className='col-offset-md-1 edit-icon' >
-                            <Trash size={25}/>
+                            <Trash size={25} onClick={() => this.deleteClickedPost(post.id)}/>
                         </span>
                         <Link to={`/edit/${post.id}`}>
                             <span className='col-offset-md-1 edit-icon' title='Edit Post' >
@@ -82,7 +87,8 @@ function mapStateToProps({ posts}, { match }) {
 function mapDispatchToProps (dispatch) {
     return {
         voteCurrentPost: (id, option) => dispatch(votePost(id, option)),
-        fetchPosts: () => dispatch(fetchPosts('voteScore'))
+        fetchPosts: () => dispatch(fetchPosts('voteScore')),
+        deletePost: (id, history) => dispatch(deletePost(id, () => history.push('/')))
     }
 }
 

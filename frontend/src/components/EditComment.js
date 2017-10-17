@@ -3,10 +3,14 @@ import Back from 'react-icons/lib/ti/arrow-left-thick'
 import {Link} from 'react-router-dom'
 import Loading from './Loading'
 import { connect } from 'react-redux';
-import _ from 'lodash'
-import {editComment, fetchComment} from '../actions/Comments'
+import {withRouter} from 'react-router'
+import { fetchComment, updateComment} from '../actions/Comments'
 
 class EditComment extends Component {
+
+    state = {
+        body: ''
+    }
     
     componentWillMount() {
         this.props.fetchComment(this.props.match.params.id)
@@ -15,7 +19,26 @@ class EditComment extends Component {
 
     editComment = (e) => {
         e.preventDefault()
-        console.log(this.inputName.value)
+        const commentId = this.props.comment.id
+        const postId = this.props.comment.parentId
+        const timestamp = Date.now()
+        const body = e.target.body.value
+    
+        if (body === "") {
+          alert('Comment cannot be empty')
+        } else {
+          this.props.updateComment(commentId, postId, timestamp, body, this.props.history)
+        }
+    }
+
+    componentDidUpdate() {
+        if(!this.state.body) {
+            this.setState({body: this.props.comment.body})
+        }
+    }
+
+    handleChange = (event) => {
+        this.setState({body: event.target.value})
     }
 
 
@@ -40,8 +63,8 @@ class EditComment extends Component {
                                 <h4>{comment.author}</h4>
                             </div>
                             <div className='form-group'>
-                                <label htmlFor='body'>Comment</label>{comment.body}
-                                <input type='text' defaultValue={comment.body} id='body' className='form-control' placeholder='Comment' />
+                                <label htmlFor='body'>Comment</label>
+                                <input type='text' value={this.state.body} onChange={(e)=> this.handleChange(e)} id='body' className='form-control' placeholder='Comment' />
                             </div>
                             <div className='row'>
                                 <button type='submit' className='btn btn-md btn-primary margin-btn'>Update</button>
@@ -62,6 +85,14 @@ function mapStateToProps(state ) {
     return {
       comment: state.comments
     }
-  }
+}
 
-export default connect(mapStateToProps, {fetchComment, editComment})(EditComment)
+function mapDispatchToProps(dispatch) {
+    return {
+        updateComment: (commentId, postId, timestamp, body, history) => dispatch(updateComment(commentId, postId, timestamp, body,
+            () => history.push(`/posts/${postId}`))),
+        fetchComment: (id) => dispatch(fetchComment(id))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(EditComment))

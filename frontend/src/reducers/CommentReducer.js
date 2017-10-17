@@ -13,7 +13,13 @@ export default function (state = INITIAL_STATE, action) {
         case FETCH_COMMENT:
             return action.payload;
         case EDIT_COMMENT:
-            return {}
+            return action.payload
+            // return state.map(comment => {
+            //     if(comment.id === action.id) {
+            //     comment = action.payload
+            //     }
+            //     return comment
+            // })
         case VOTE_COMMENT:
             return  {
                 ...state,

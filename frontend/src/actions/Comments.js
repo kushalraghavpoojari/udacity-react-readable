@@ -110,3 +110,17 @@ export function voteComment(id, vote, callback) {
         .catch(err => console.log(err))
     }
 }
+
+//UPDATE A COMMENT
+
+export function updateComment(id, postId, timestamp, body, callback) {
+    return dispatch => {axios.put(`${api}/comments/${id}`, {timestamp, body})
+        .then(res => 
+            {
+                callback();
+                dispatch({ type: EDIT_COMMENT, payload: res.data, id, postId })
+            }
+        )
+        .catch(err => console.log(err))
+    }
+}
