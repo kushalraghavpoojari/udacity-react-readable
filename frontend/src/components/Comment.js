@@ -29,7 +29,7 @@ class Comment extends Component {
                                 <span className='padding-icons'>
                                     <Up size={30} className='cursor' onClick={() => this.props.onVoteScore(comment.id, "upVote")}/>
                                     <Down size={30} className='cursor' onClick={() => this.props.onVoteScore(comment.id, "downVote")}/>
-                                    <Link to={`/posts/${post.id}/comment/edit/${comment.id}`}>
+                                    <Link to={`/${post.category}/posts/${post.id}/comment/edit/${comment.id}`}>
                                         <EditIcon size={25} className='cursor'/>
                                     </Link>
                                 </span>

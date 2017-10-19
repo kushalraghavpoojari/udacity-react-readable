@@ -16,11 +16,11 @@ class App extends Component {
 
         <Route exact path='/' component={Main}/>
         <Route exact path='/newPost' component= {CreatePost}/>
-        <Route exact  path='/edit/:id'  component={EditPost}/>
+        <Route exact  path='/:category/edit/:id'  component={EditPost}/>
         <Route  exact path='/:category'  component={Main}/>
-        <Route  exact path='/posts/:id'  component={PostDetails}/>
-        <Route  exact path='/posts/:id/comment/new'  component={CreateComment}/>
-        <Route  exact  path='/posts/:id/comment/edit/:id'  component={EditComment}/>
+        <Route  exact path='/:category/posts/:id'  component={PostDetails}/>
+        <Route  exact path='/:category/posts/:id/comment/new'  component={CreateComment}/>
+        <Route  exact  path='/:category/posts/:id/comment/edit/:id'  component={EditComment}/>
         </Switch>
 
       </div>

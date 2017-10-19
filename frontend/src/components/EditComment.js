@@ -27,7 +27,7 @@ class EditComment extends Component {
         if (body === "") {
           alert('Comment cannot be empty')
         } else {
-          this.props.updateComment(commentId, postId, timestamp, body, this.props.history)
+          this.props.updateComment(commentId, postId, timestamp, body, this.props.history, this.props.match.params.category)
         }
     }
 
@@ -81,7 +81,7 @@ class EditComment extends Component {
 
 }
 
-function mapStateToProps(state ) {
+function mapStateToProps(state, {match} ) {
     return {
       comment: state.comments
     }
@@ -89,8 +89,8 @@ function mapStateToProps(state ) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        updateComment: (commentId, postId, timestamp, body, history) => dispatch(updateComment(commentId, postId, timestamp, body,
-            () => history.push(`/posts/${postId}`))),
+        updateComment: (commentId, postId, timestamp, body, history, category) => dispatch(updateComment(commentId, postId, timestamp, body,
+            () => history.push(`/${category}/posts/${postId}`))),
         fetchComment: (id) => dispatch(fetchComment(id))
     }
 }

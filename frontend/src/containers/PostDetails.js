@@ -47,7 +47,7 @@ class PostDetails extends Component {
                         <span className='col-offset-md-1 edit-icon' >
                             <Trash size={25} onClick={() => this.deleteClickedPost(post.id)}/>
                         </span>
-                        <Link to={`/edit/${post.id}`}>
+                        <Link to={`/${post.category}/edit/${post.id}`}>
                             <span className='col-offset-md-1 edit-icon' title='Edit Post' >
                                 <EditIcon size={25}/>
                             </span>

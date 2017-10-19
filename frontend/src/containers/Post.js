@@ -21,14 +21,14 @@ class Post extends Component {
                 <div className='post'>
                     <div className='row post-title'>
                         <span className='col-md-2 circle-name'>{IconMaker(post.author)}</span>
-                        <Link to={`/posts/${post.id}`}>
+                        <Link to={`/${post.category}/posts/${post.id}`}>
                             <h3 className='title-color col-md-7'>{post.title}</h3>
                         </Link>
                         <span className='col-md-1 circle voteScore'>{post.voteScore}</span>
                         <span className='col-offset-md-1 edit-icon' onClick={() => deleteClickedPost(post.id)}>
                             <Trash size={25}/>
                         </span>
-                        <Link to={`/edit/${post.id}`}>
+                        <Link to={`/${post.category}/edit/${post.id}`}>
                             <span className='col-offset-md-1 edit-icon' title='Edit Post' >
                                 <EditIcon size={25}/>
                             </span>
