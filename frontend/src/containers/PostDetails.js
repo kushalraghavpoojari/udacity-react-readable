@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom'
 import {fetchPosts, votePost, deletePost} from '../actions/Post'
 import { connect } from 'react-redux';
 import _ from 'lodash'
-import Loading from '../components/Loading'
 import {IconMaker} from '../utils/helpers'
 import Up from 'react-icons/lib/ti/thumbs-up'
 import Down from 'react-icons/lib/ti/thumbs-down'
@@ -13,6 +12,7 @@ import CommentIcon from 'react-icons/lib/ti/message'
 import EditIcon from 'react-icons/lib/ti/brush'
 import {convertTimestamp} from '../utils/helpers'
 import CommentList from './CommentList'
+import NotFound from '../components/NotFound'
 
 class PostDetails extends Component {
     componentWillMount() {
@@ -27,7 +27,7 @@ class PostDetails extends Component {
 
         const {post, voteCurrentPost} = this.props
         return (
-            (!post) ? <Loading /> :
+            (!post) ? <NotFound /> :
             <div className='container-fluid'>
                 <div className='row title'>
                     <div className='col-md-1'>

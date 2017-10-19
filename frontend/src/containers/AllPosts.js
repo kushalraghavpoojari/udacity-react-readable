@@ -3,6 +3,7 @@ import Post from './Post'
 import { connect } from 'react-redux';
 import {fetchPosts, deletePost} from '../actions/Post'
 import { Link }from 'react-router-dom'
+import _ from 'lodash'
 
 class AllPosts extends Component {
 
@@ -28,7 +29,7 @@ class AllPosts extends Component {
                 <div className='row'>
                     <div className='col-md-8 posts-text'>Posts</div>
                     <div className='col-md-2'>
-                        <Link to='/new'><span className='btn btn-md btn-success'>Make a Post</span></Link>
+                        <Link to='/newPost'><span className='btn btn-md btn-success'>Make a Post</span></Link>
                     </div>
                     <div className='col-md-2'>
                         <select className='sortOrder'onChange={(e) => this.onSortChange(e.target.value)}>
@@ -39,7 +40,7 @@ class AllPosts extends Component {
                 </div>
                 <div className='all-posts'>
                     {posts.length > 0 && posts.filter((post) => (
-                        category === 'all' ? post && post.deleted !== true : post.category === category && post.deleted !== true 
+                        category === 'all' ? post  : post.category === category  
                     )).map((post) => (
                         <Post key={post.id} post={post} deleteClickedPost={this.deleteClickedPost} sort={this.state.sort}/>
                     ))}
@@ -53,7 +54,7 @@ class AllPosts extends Component {
 
 function mapStateToProps(state) {
     return {
-        posts: state.posts
+        posts: _.filter(state.posts, post => !post.deleted)
     }
 }
 

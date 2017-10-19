@@ -12,15 +12,18 @@ export const headers = {
 }
 
 export function IconMaker(name) {
-  let nameArray = name.split(' ')
-  let initials = nameArray.map((letter) => (
-    letter.charAt(0)
-  ))
-  if(initials.length > 1) {
-    return initials[0].toUpperCase() + initials[1].toUpperCase()
-  } else {
-    return initials[0].toUpperCase()
-  }
+  if(name !== undefined) {
+    let nameArray = name.split(' ')
+    let initials = nameArray.map((letter) => (
+      letter.charAt(0)
+    ))
+    if(initials.length > 1) {
+      return initials[0].toUpperCase() + initials[1].toUpperCase()
+    } else {
+      return initials[0].toUpperCase()
+    }
+  } else return 'X'
+  
 }
 
 export function convertTimestamp(time) {

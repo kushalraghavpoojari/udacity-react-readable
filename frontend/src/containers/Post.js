@@ -9,13 +9,14 @@ import { connect } from 'react-redux';
 import {convertTimestamp} from '../utils/helpers'
 import {Link} from 'react-router-dom'
 import {votePost, fetchPosts} from '../actions/Post'
+import NotFound from '../components/NotFound'
 
 class Post extends Component {
     
     render() { 
         const {post, deleteClickedPost, voteCurrentPost, fetchAllPosts, sort} = this.props
-        
         return (
+            (post.deleted) ? <NotFound /> :
             <div>
                 <div className='post'>
                     <div className='row post-title'>
@@ -44,7 +45,7 @@ class Post extends Component {
                         <div className='col-md-3'>
                             <span className='padding-icons'>
                                 <Up size={30} className='cursor'onClick={() => {voteCurrentPost(post.id, "upVote")
-                                 fetchAllPosts(sort)}}/>
+                                fetchAllPosts(sort)}}/>
                                 <Down size={30} className='cursor' onClick={() => {voteCurrentPost(post.id, 'downVote') 
                                 fetchAllPosts(sort)}}/>
                             </span>
